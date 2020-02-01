@@ -17,7 +17,6 @@ class TESTINGGROUNDS_API APatrollingGuard : public ATP_ThirdPersonCharacter
 
 
 public:
-	UPROPERTY(EditInstanceOnly, Category = "Patrol Route") //TODO Remove or create GET function
-	TArray<AActor*> PatrolPointsCPP;
+	
 	
 };
