@@ -68,9 +68,11 @@ void AFirstPersonCharacter::BeginPlay()
 
 	if (!ensure(Mesh1P)) { return; }
 	if (!ensure (GunBlueprint)) { return; }
-	auto Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
+	Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
 	Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint"));
-	
+	Gun->AnimInstance = Mesh1P->GetAnimInstance();
+	SetupPlayerInputComponent(InputComponent);
+
 	//Attach gun mesh component to Skeleton, doing it here because the skeleton is not yet created in the constructor
 	// FP_Gun->AttachToComponent(Mesh1P, FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true), TEXT("GripPoint")); // TODO Figure out how to attach gun to character
 
@@ -100,7 +102,7 @@ void AFirstPersonCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
 	// Bind fire event
-	//PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AFirstPersonCharacter::OnFire);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, Gun, &AGun::OnFire);
 
 	// Enable touchscreen input
 	EnableTouchscreenMovement(PlayerInputComponent);
@@ -133,7 +135,7 @@ void AFirstPersonCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, cons
 	}
 	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
 	{
-		//OnFire();
+		&AGun::OnFire;
 	}
 	TouchItem.bIsPressed = true;
 	TouchItem.FingerIndex = FingerIndex;
