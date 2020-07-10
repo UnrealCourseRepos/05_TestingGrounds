@@ -37,10 +37,17 @@ public:
 
 	/** AnimMontage to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UAnimMontage* FireAnimation;
+	class UAnimMontage* FPFireAnimation;
+
+	/** AnimMontage to play each time we fire */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UAnimMontage* TPFireAnimation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay) // Not need because its set in FirstPersonCharacter
-	class UAnimInstance* AnimInstance;
+	class UAnimInstance* FPAnimInstance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay) // Not need because its set in FirstPersonCharacter
+	class UAnimInstance* TPAnimInstance;
 
 	/** Fires a Projectile. */
 	UFUNCTION(BlueprintCallable, Category = "Input")
