@@ -19,4 +19,7 @@ public:
 	AActor* Checkout(); // Allows tile to get hold of the actor
 	void ReturnActor(AActor* ActorToReturn);
 	void AddActor(AActor* ActorToAdd);
+
+private:
+	TArray<AActor*> Pool;
 };

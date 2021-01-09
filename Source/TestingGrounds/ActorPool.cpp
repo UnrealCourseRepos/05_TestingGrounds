@@ -14,23 +14,18 @@ UActorPool::UActorPool()
 }
 
 AActor* UActorPool::Checkout() {
-	UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] Checkout"), *GetName());
-	return nullptr;
+	//UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] Checkout"), *GetName()); //TODO Remove
+	if (Pool.Num() == 0) {
+		return nullptr;
+	}
+	return Pool.Pop();
 }
 
 void UActorPool::ReturnActor(AActor* ActorToReturn) {
-	if (ActorToReturn == nullptr) {
-		UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] Returned null pointer"), *GetName());
-		return;
-	}
-	UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] Returned [%s]"), *GetName(), *(ActorToReturn->GetName()));
-	return;
+	AddActor(ActorToReturn);
 }
+
 void UActorPool::AddActor(AActor* ActorToAdd) {
-	if (ActorToAdd == nullptr) {
-		UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] Added null pointer"), *GetName());
-		return;
-	}
-	UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] Added [%s]"), *GetName(), *(ActorToAdd->GetName()));
-	return;
+	Pool.Push(ActorToAdd);
 }
+
