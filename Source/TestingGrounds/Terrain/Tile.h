@@ -27,12 +27,20 @@ public:
 	// Sets default values for this actor's properties
 	ATile();
 
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 	UFUNCTION(BlueprintCallable, Category = "Spawn")
 	void PlaceActors(TSubclassOf<AActor> ToSpawn, int MinSpawn = 1, int MaxSpawn = 1, float Radius = 500, float MinScale = 1.f, float MaxScale = 1.f);
 	
 	UFUNCTION(BlueprintCallable, Category = "Spawn")
 	void PlaceAIPawns(TSubclassOf<APawn> ToSpawn, int MinSpawn = 1, int MaxSpawn = 1, float Radius = 500);
 
+	UFUNCTION(BlueprintCallable, Category = "Pool")
+	void SetPool(UActorPool* InPool);
+
+	UFUNCTION(BlueprintCallable, Category = "Tile")
+	void TileConquered();
 	
 
 protected:
@@ -47,13 +55,6 @@ protected:
 	FVector MinExtent;
 	UPROPERTY(EditDefaultsOnly, Category = "Spawning")
 	FVector MaxExtent;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	UFUNCTION(BlueprintCallable, Category = "Pool")
-	void SetPool(UActorPool* InPool);
 
 private:
 
@@ -73,4 +74,5 @@ private:
 
 	AActor* NavMeshBoundsVolume;
 
+	bool IsTileConquered = false;
 };

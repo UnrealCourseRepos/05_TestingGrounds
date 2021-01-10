@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
+#include "InfiniteTerrainGameMode.h"
 #include "ActorPool.h"
 
 //TODO Fix Detection range
@@ -148,4 +149,12 @@ bool ATile::CanSpawnAtLocation(FVector Location, float Radius) {
 
 	//UE_LOG(LogTemp, Warning, TEXT("CAT: %s"), HasHit); //TODO Fix (Crashes Editor)
 	return !HasHit;
+}
+
+void ATile::TileConquered() {
+	if(IsTileConquered == false){
+		AInfiniteTerrainGameMode* InfiniteGameMode = Cast<AInfiniteTerrainGameMode>(GetWorld()->GetAuthGameMode());
+		InfiniteGameMode->NewTileConquered();
+		IsTileConquered = true;
+	}
 }

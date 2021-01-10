@@ -24,3 +24,9 @@ void AInfiniteTerrainGameMode::AddToPool(ANavMeshBoundsVolume* VolumeToAdd) {
 	NavMeshBoundsVolumePool->AddActor(VolumeToAdd);
 	//UE_LOG(LogTemp, Warning, TEXT("Nav Mesh found: %s"), *VolumeToAdd->GetName());
 }
+
+void AInfiniteTerrainGameMode::NewTileConquered()
+{
+	Score++;
+	UE_LOG(LogTemp, Warning, TEXT("CAT: Score is %d"), Score);
+}
