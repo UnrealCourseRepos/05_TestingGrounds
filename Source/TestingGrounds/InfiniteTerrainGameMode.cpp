@@ -28,5 +28,11 @@ void AInfiniteTerrainGameMode::AddToPool(ANavMeshBoundsVolume* VolumeToAdd) {
 void AInfiniteTerrainGameMode::NewTileConquered()
 {
 	Score++;
-	UE_LOG(LogTemp, Warning, TEXT("CAT: Score is %d"), Score);
 }
+
+int AInfiniteTerrainGameMode::GetScore()
+{
+	return Score;
+}
+
+

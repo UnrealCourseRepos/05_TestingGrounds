@@ -20,8 +20,11 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Bounds Pool")
 	void PopulateBoundsVolumePool();
 
-	UFUNCTION(BlueprintCallable, Category = "Bounds Pool")
+	UFUNCTION(BlueprintCallable, Category = "Score")
 	void NewTileConquered();
+
+	UFUNCTION(BlueprintCallable, Category = "Score")
+	int GetScore();
 
 protected:
 
