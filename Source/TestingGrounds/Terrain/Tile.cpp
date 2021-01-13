@@ -21,7 +21,7 @@ ATile::ATile()
 }
 
 void ATile::SetPool(UActorPool* InPool) {
-	UE_LOG(LogTemp, Warning, TEXT("CAT: Setting Pool %s"), *(InPool->GetName()));
+	//UE_LOG(LogTemp, Warning, TEXT("CAT: Setting Pool %s"), *(InPool->GetName()));
 	Pool = InPool;
 
 	PositionNavMeshBoundsVolume();
@@ -91,11 +91,10 @@ void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, const FSpawnPosition & Spawn
 
 void ATile::PlaceActor(TSubclassOf<APawn> ToSpawn, const FSpawnPosition & SpawnPosition)
 {
-	APawn* Spawned = GetWorld()->SpawnActor<APawn>(ToSpawn);
+	FRotator Rotation = FRotator(0, SpawnPosition.Rotation, 0);
+	APawn* Spawned = GetWorld()->SpawnActor<APawn>(ToSpawn, SpawnPosition.Location, Rotation);
 	if (Spawned) {
-		Spawned->SetActorRelativeLocation(SpawnPosition.Location);
 		Spawned->AttachToActor(this, FAttachmentTransformRules(EAttachmentRule::KeepRelative, false));
-		Spawned->SetActorRotation(FRotator(0, SpawnPosition.Rotation, 0));
 		Spawned->SpawnDefaultController();
 		Spawned->Tags.Add(FName("Enemy"));
 	}
@@ -112,7 +111,8 @@ void ATile::BeginPlay()
 void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason) {
 	Super::EndPlay(EndPlayReason); //TODO Remove?
 
-	UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] EndPlay"), *GetName());
+	//UE_LOG(LogTemp, Warning, TEXT("CAT: [%s] EndPlay"), *GetName());
+	if (!Pool && !NavMeshBoundsVolume) { return; }
 	Pool->ReturnActor(NavMeshBoundsVolume);
 
 }
