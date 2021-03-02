@@ -40,7 +40,7 @@ void AMannequin::BeginPlay()
 	Super::BeginPlay();
 	if (GunBlueprint == NULL) {
 		UE_LOG(LogTemp, Warning, TEXT("Gun blueprint missing."))
-			return;
+		return;
 	}
 
 	Gun = GetWorld()->SpawnActor<AGun>(GunBlueprint);
